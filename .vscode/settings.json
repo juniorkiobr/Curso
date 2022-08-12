@@ -1,0 +1,6 @@
+{
+  "lövelauncher.path": "D:\\love-11.4-win64/love.exe",
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.workspace.library": ["${3rd}/love2d/library"],
+  "Lua.workspace.checkThirdParty": false
+}
