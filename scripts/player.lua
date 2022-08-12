@@ -1,7 +1,27 @@
 require "scripts.projectile"
 
-function ConfigurePlayer()
-    MovementPlayer = {
+Player = {}
+-- Player.__index = Player
+
+function Player:new(o)
+    o = o or {}
+    setmetatable(o, self)
+    self.__index = self
+    Player:configure()
+    -- statements
+end
+
+function Player:draw()
+    DrawSprite(self.sprite)
+    -- self:DrawProjectiles()
+end
+
+function Player:get(variable)
+    return self[variable]
+end
+
+function Player:configure()
+    self.MovementPlayer = {
         up = false,
         down = false,
         left = false,
@@ -9,49 +29,55 @@ function ConfigurePlayer()
         space = false,
         velocity = 30 * Speed
     }
-    Player = CreateSprite(LarguraTela / 2, AlturaTela / 2, "Imagens/nave.png")
-    Player.projectiles = {}
-    Player.fireCoolDown = 0.5
+    self.sprite = CreateSprite(LarguraTela / 2, AlturaTela / 2, "Imagens/nave.png")
+    self.projectiles = {}
+    self.fireCoolDown = 0.7
 end
-function MovePlayer(dt)
-    if (MovementPlayer.up and Player.y - (MovementPlayer.velocity * dt) >= 0) then
-        Player.y = Player.y - CalculateValocityDiagonal(dt, true)
+function Player:move(dt)
+    if (self.MovementPlayer.up and self.sprite.y - (self.MovementPlayer.velocity * dt) >= 0) then
+        self.sprite.y = self.sprite.y - CalculateValocityDiagonal(dt, true)
     end
-    if (MovementPlayer.down and (Player.y + Player.height) + (MovementPlayer.velocity * dt) <= AlturaTela) then
-        Player.y = Player.y + CalculateValocityDiagonal(dt, true)
+    if
+        (self.MovementPlayer.down and
+            (self.sprite.y + self.sprite.height) + (self.MovementPlayer.velocity * dt) <= AlturaTela)
+     then
+        self.sprite.y = self.sprite.y + CalculateValocityDiagonal(dt, true)
     end
-    if (MovementPlayer.left and Player.x - (MovementPlayer.velocity * dt) >= 0) then
-        Player.x = Player.x - CalculateValocityDiagonal(dt)
+    if (self.MovementPlayer.left and self.sprite.x - (self.MovementPlayer.velocity * dt) >= 0) then
+        self.sprite.x = self.sprite.x - CalculateValocityDiagonal(dt)
     end
-    if (MovementPlayer.right and (Player.x + Player.width) + (MovementPlayer.velocity * dt) <= LarguraTela) then
-        Player.x = Player.x + CalculateValocityDiagonal(dt)
+    if
+        (self.MovementPlayer.right and
+            (self.sprite.x + self.sprite.width) + (self.MovementPlayer.velocity * dt) <= LarguraTela)
+     then
+        self.sprite.x = self.sprite.x + CalculateValocityDiagonal(dt)
     end
 
-    if (MovementPlayer.space) then
-        if TableLenght(Player.projectiles) < 5 and Player.fireCoolDown <= 0 then
+    if (self.MovementPlayer.space) then
+        if TableLenght(self.projectiles) < 5 and self.fireCoolDown <= 0 then
             local projectile = ConfigureProjectile({})
-            projectile.x = Player.x + (Player.width / 2)
-            projectile.y = Player.y - projectile.height
+            projectile.x = self.sprite.x + (self.sprite.width / 2)
+            projectile.y = self.sprite.y - projectile.height
             projectile.speed = projectile.speed * -1
             projectile.sfx:play()
-            Player.fireCoolDown = 0.5
-            table.insert(Player.projectiles, projectile)
+            self.fireCoolDown = 0.5
+            table.insert(self.projectiles, projectile)
         end
-        Player.fireCoolDown = Player.fireCoolDown - 0.1
+        self.fireCoolDown = self.fireCoolDown - 0.1
     end
 end
 
-function PlayerDrawProjectiles()
-    for _, projectile in pairs(Player.projectiles) do
+function Player:DrawProjectiles()
+    for _, projectile in pairs(self.projectiles) do
         DrawProjectile(projectile)
     end
 end
 
-function PlayerUpdateProjectiles(dt)
-    for index, projectile in pairs(Player.projectiles) do
+function Player:UpdateProjectiles(dt)
+    for index, projectile in pairs(self.projectiles) do
         UpdateProjectile(projectile, dt)
         if projectile.lifetime < 0 then
-            table.remove(Player.projectiles, index)
+            table.remove(self.projectiles, index)
         end
     end
 end

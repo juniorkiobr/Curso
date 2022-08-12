@@ -8,20 +8,19 @@ require "scripts.player"
 
 function love.load()
   ConfigBackground()
-  ConfigurePlayer()
+  Player:new()
 end
 
 function love.update(dt)
   DetectKeysPlayer()
   RepeatBackground(dt)
   MoveBackground(dt)
-  MovePlayer(dt)
-  PlayerUpdateProjectiles(dt)
+  Player:move(dt)
+  Player:UpdateProjectiles(dt)
 end
 
 function love.draw()
-  -- love.graphics.print("Hello World!", 10, 10)
   DrawBackground()
-  DrawSprite(Player)
-  PlayerDrawProjectiles()
+  Player:draw()
+  Player:DrawProjectiles()
 end

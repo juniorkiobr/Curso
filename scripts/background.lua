@@ -20,20 +20,14 @@ end
 
 function RepeatBackground()
     if Background.yImgA > AlturaTela then
-        print("yImgA: " .. Background.yImgA)
         Background.yImgA = (0 - Background.height)
-        print("yImgA Changed: " .. Background.yImgA)
     end
     if Background.yImgB > AlturaTela then
-        print("yImgB: " .. Background.yImgB)
         Background.yImgB = (0 - Background.height)
-        print("yImgB Changed: " .. Background.yImgB)
     end
 end
 
 function MoveBackground(dt)
     Background.yImgA = Background.yImgA + Background.velocity * dt
     Background.yImgB = Background.yImgB + Background.velocity * dt
-    -- print(Background.yImgA)
-    -- print(Background.yImgB)
 end

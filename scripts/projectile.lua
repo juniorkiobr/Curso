@@ -17,7 +17,7 @@ function ConfigureProjectile(projectile)
         end
         Player.projectile = nil
         Player.projectile = ConfigureProjectile({})
-        MovementPlayer.space = false
+        -- MovementPlayer.space = false
     end
     return projectile
 end
@@ -32,7 +32,6 @@ function UpdateProjectile(projectile, dt)
     if projectile then
         projectile.y = projectile.y + (projectile.speed * dt)
         projectile.lifetime = projectile.lifetime - dt
-        print(projectile.lifetime)
 
         if projectile.lifetime < 0 then
             projectile.hit_callback(projectile)
