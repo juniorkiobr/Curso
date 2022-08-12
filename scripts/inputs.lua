@@ -14,6 +14,10 @@ function love.keyreleased(key)
     if not KeysAreDown("right", "d") then
         MovementPlayer.right = false
     end
+
+    if not KeysAreDown("space", "return") then
+        MovementPlayer.space = false
+    end
 end
 
 function KeysAreDown(k1, k2)
@@ -32,5 +36,8 @@ function DetectKeysPlayer()
     end
     if KeysAreDown("down", "s") then
         MovementPlayer.down = true
+    end
+    if KeysAreDown("space", "return") then
+        MovementPlayer.space = true
     end
 end

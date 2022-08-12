@@ -14,3 +14,11 @@ function CalculateValocityDiagonal(dt, vertical_keys)
         return ((-0.5 * BoolToNumber[MovementPlayer.left or MovementPlayer.right]) + 1) * MovementPlayer.velocity * dt
     end
 end
+
+function TableLenght(t)
+    local count = 0
+    for _ in pairs(t) do
+        count = count + 1
+    end
+    return count
+end
