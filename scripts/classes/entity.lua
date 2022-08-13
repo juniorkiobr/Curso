@@ -39,3 +39,9 @@ function newPlayer()
     local r = c("Player")
     return r
 end
+
+function newEnemy()
+    local c = Class(Entity)
+    local r = c("Enemy")
+    return r
+end

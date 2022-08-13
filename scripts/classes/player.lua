@@ -6,19 +6,13 @@ print("calling newPlayer()")
 -- Player.__index = Player
 
 function Player:new()
-    -- print("Player:get(name): " .. Player:get("MovementPlayer"))
     Player:__tostring()
     Player:configure()
 end
 
 function Player:draw()
     DrawSprite(self.sprite)
-    -- self:DrawProjectiles()
 end
-
--- function Player:get(variable)
---     return self[variable]
--- end
 
 function Player:configure()
     self.MovementPlayer = {
