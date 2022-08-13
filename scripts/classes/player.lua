@@ -1,14 +1,14 @@
 require "scripts.projectile"
+require "scripts.classes.entity"
 
-Player = {}
+Player = newPlayer()
+print("calling newPlayer()")
 -- Player.__index = Player
 
-function Player:new(o)
-    o = o or {}
-    setmetatable(o, self)
-    self.__index = self
+function Player:new()
+    -- print("Player:get(name): " .. Player:get("MovementPlayer"))
+    Player:__tostring()
     Player:configure()
-    -- statements
 end
 
 function Player:draw()
@@ -16,9 +16,9 @@ function Player:draw()
     -- self:DrawProjectiles()
 end
 
-function Player:get(variable)
-    return self[variable]
-end
+-- function Player:get(variable)
+--     return self[variable]
+-- end
 
 function Player:configure()
     self.MovementPlayer = {

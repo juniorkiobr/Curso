@@ -3,7 +3,7 @@ require "scripts.sprites"
 require "scripts.utils"
 
 require "scripts.background"
-require "scripts.player"
+require "scripts.classes.player"
 -- require "scripts.enemy"
 
 function love.load()
