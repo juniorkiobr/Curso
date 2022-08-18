@@ -6,8 +6,6 @@ require "scripts.background"
 require "scripts.classes.player"
 require "scripts.classes.enemy"
 
--- require "scripts.enemy"
-
 function love.load()
   ConfigBackground()
   Player:new()

@@ -1,9 +1,5 @@
 function ConfigureProjectile(projectile)
-    projectile.image = love.graphics.newImage("Imagens/projetil.png")
-    projectile.width = projectile.image:getWidth()
-    projectile.height = projectile.image:getHeight()
-    projectile.x = LarguraTela / 2
-    projectile.y = AlturaTela
+    projectile.sprite = CreateSprite(LarguraTela / 2, AlturaTela, "Imagens/projetil.png")
     projectile.speed = 59 * Speed
     projectile.lifetime = 1.0
     projectile.sfx = love.audio.newSource("sons/Tiro.wav", "static")
@@ -15,8 +11,8 @@ function ConfigureProjectile(projectile)
         else
             print("Projectile colided with something")
         end
-        Player.projectile = nil
-        Player.projectile = ConfigureProjectile({})
+        -- Player.projectile = nil
+        -- Player.projectile = ConfigureProjectile({})
         -- MovementPlayer.space = false
     end
     return projectile
@@ -24,13 +20,14 @@ end
 
 function DrawProjectile(projectile)
     if projectile then
-        love.graphics.draw(projectile.image, projectile.x, projectile.y)
+        DrawSprite(projectile.sprite)
+    -- love.graphics.draw(projectile.image, projectile.x, projectile.sprite.y)
     end
 end
 
 function UpdateProjectile(projectile, dt)
     if projectile then
-        projectile.y = projectile.y + (projectile.speed * dt)
+        projectile.sprite.y = projectile.sprite.y + (projectile.speed * dt)
         projectile.lifetime = projectile.lifetime - dt
 
         if projectile.lifetime < 0 then

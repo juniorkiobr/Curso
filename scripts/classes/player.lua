@@ -50,8 +50,9 @@ function Player:move(dt)
     if (self.MovementPlayer.space) then
         if TableLenght(self.projectiles) < 5 and self.fireCoolDown <= 0 then
             local projectile = ConfigureProjectile({})
-            projectile.x = self.sprite.x + (self.sprite.width / 2)
-            projectile.y = self.sprite.y - projectile.height
+            -- projectile.image.fl
+            UpdateX(projectile.sprite, self.sprite.x + math.ceil(self.sprite.width / 2), 3)
+            UpdateY(projectile.sprite, self.sprite.y - projectile.sprite.height, 0)
             projectile.speed = projectile.speed * -1
             projectile.sfx:play()
             self.fireCoolDown = 0.5

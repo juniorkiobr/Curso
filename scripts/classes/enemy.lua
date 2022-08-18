@@ -59,9 +59,11 @@ end
 
 function Enemy:fire()
     if TableLenght(self.projectiles) < 5 and self.fireCoolDown <= 0 then
+        print("fire", self.sprite.x + math.ceil(self.sprite.width / 2), self.sprite.y)
         local projectile = ConfigureProjectile({})
-        projectile.x = self.sprite.x + (self.sprite.width / 2)
-        projectile.y = self.sprite.y + projectile.height
+        MirrorY(projectile.sprite, true)
+        UpdateX(projectile.sprite, self.sprite.x + math.ceil(self.sprite.width / 2), 3)
+        UpdateY(projectile.sprite, self.sprite.y + projectile.sprite.height, 0)
         projectile.speed = projectile.speed
         projectile.sfx:play()
         self.fireCoolDown = 0.5
@@ -76,7 +78,7 @@ function Enemy:UpdateProjectiles(dt)
         if projectile.lifetime < 0 then
             table.remove(self.projectiles, index)
         end
-        -- if projectile.x < 0 or projectile.x > LarguraTela or projectile.y < 0 or projectile.y > AlturaTela then
+        -- if projectile.x < 0 or projectile.x > LarguraTela or projectile.sprite.y < 0 or projectile.sprite.y > AlturaTela then
         --     table.remove(self.projectiles, i)
         -- end
     end
