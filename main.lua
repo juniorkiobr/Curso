@@ -1,6 +1,7 @@
 require "scripts.inputs"
 require "scripts.sprites"
 require "scripts.utils"
+require "scripts.enemySpawner"
 
 require "scripts.background"
 require "scripts.classes.player"
@@ -18,6 +19,7 @@ function love.update(dt)
     MoveBackground(dt)
     Player:move(dt)
     Player:UpdateProjectiles(dt)
+    AutoSpawnEnemy(dt)
     UpdateAllEnemies(dt)
   end
 end

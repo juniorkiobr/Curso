@@ -41,6 +41,11 @@ function Entity:isNear(projectile)
         self.sprite.y + self.sprite.height > projectile.sprite.y
 end
 
+function Entity:destroy()
+    print("Spaceship destroyed")
+    self.sprite.destroysfx:play()
+end
+
 function newPlayer()
     local c = Class(Entity)
     local r = c("Player")

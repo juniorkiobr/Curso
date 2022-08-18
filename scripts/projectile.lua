@@ -47,6 +47,7 @@ function ColisionCheck(projectile)
             i, entity = GetEnemyNearProjectile(projectile)
         end
         if GameActive and entity and entity:isNear(projectile) then
+            entity:destroy()
             projectile.hit_callback(projectile)
             if (entity.name == "Enemy") then
                 table.remove(Enemies, i)

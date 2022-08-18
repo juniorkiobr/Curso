@@ -38,9 +38,9 @@ end
 --         self.sprite.y + self.sprite.height > projectile.sprite.y
 -- end
 
-function Enemy:new()
+function Enemy:new(x, y)
     nEnemy = Class(Enemy)
-    nEnemy:configure()
+    nEnemy:configure(x, y)
     InsertEnemy(nEnemy)
 end
 
@@ -49,7 +49,7 @@ function Enemy:draw()
     self:DrawProjectiles()
 end
 
-function Enemy:configure()
+function Enemy:configure(x, y)
     self.MovementEnemy = {
         up = false,
         down = false,
@@ -59,7 +59,9 @@ function Enemy:configure()
         velocity = 30 * Speed
     }
     print(self.MovementEnemy.velocity)
-    self.sprite = CreateSprite(0, 0, "Imagens/inimigo.png")
+    self.sprite = CreateSprite(x, y, "Imagens/inimigo.png")
+    self.sprite.destroysfx = love.audio.newSource("sons/ExplodeInimigo.wav", "static")
+
     self.projectiles = {}
     self.fireCoolDown = 0.7
 end

@@ -2,18 +2,18 @@ require "scripts.projectile"
 require "scripts.classes.entity"
 
 PlayerClass = newPlayer()
-print("calling newPlayer()")
--- PlayerClass.__index = PlayerClass
 
 function PlayerClass:new()
     local nPlayer = Class(PlayerClass)
     nPlayer:configure()
+    print("calling configure()")
+    print(nPlayer)
     Player = nPlayer
 end
 
 function GetPlayerNearProjectile(projectile)
-    if PlayerClass:isNear(projectile) then
-        return PlayerClass
+    if Player:isNear(projectile) then
+        return Player
     end
     return nil
 end
@@ -39,6 +39,7 @@ function PlayerClass:configure()
         velocity = 30 * Speed
     }
     self.sprite = CreateSprite(LarguraTela / 2, AlturaTela / 2, "Imagens/nave.png")
+    self.sprite.destroysfx = love.audio.newSource("sons/ExplodeNave.wav", "static")
     self.projectiles = {}
     self.fireCoolDown = 0.7
 end

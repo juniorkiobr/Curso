@@ -36,7 +36,6 @@ function Class(inherit, init)
         return false
     end
     setmetatable(c, metatable)
-    print("Class:new(inherit, init): " .. tostring(c))
 
     return c
 end

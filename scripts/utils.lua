@@ -1,3 +1,5 @@
+math.randomseed(os.time()) -- seed the random number generator
+
 LarguraTela = love.graphics.getWidth()
 AlturaTela = love.graphics.getHeight()
 Speed = 10
@@ -21,9 +23,7 @@ function LoadGame()
     Enemies = {}
     ConfigBackground()
     PlayerClass:new()
-    for i = 1, 9, 1 do
-        Enemy:new()
-    end
+    -- SpawnEnemy()
     DrawBackground()
     Player:draw()
     DrawAllEnemies()
