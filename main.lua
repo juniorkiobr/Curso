@@ -7,23 +7,28 @@ require "scripts.classes.player"
 require "scripts.classes.enemy"
 
 function love.load()
-  ConfigBackground()
-  Player:new()
-  Enemy:new()
+  LoadGame()
 end
 
 function love.update(dt)
   DetectKeysPlayer()
-  RepeatBackground(dt)
-  MoveBackground(dt)
-  Player:move(dt)
-  Player:UpdateProjectiles(dt)
-  Enemy:Update(dt)
+
+  if (GameActive) then
+    RepeatBackground(dt)
+    MoveBackground(dt)
+    Player:move(dt)
+    Player:UpdateProjectiles(dt)
+    UpdateAllEnemies(dt)
+  end
 end
 
 function love.draw()
-  DrawBackground()
-  Player:draw()
-  Player:DrawProjectiles()
-  Enemy:draw()
+  if (GameActive) then
+    DrawBackground()
+    Player:draw()
+    Player:DrawProjectiles()
+    DrawAllEnemies()
+  else
+    love.graphics.print("Press fire to start", love.graphics.getWidth() / 2 - 50, love.graphics.getHeight() / 2)
+  end
 end

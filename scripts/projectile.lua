@@ -29,9 +29,35 @@ function UpdateProjectile(projectile, dt)
     if projectile then
         projectile.sprite.y = projectile.sprite.y + (projectile.speed * dt)
         projectile.lifetime = projectile.lifetime - dt
+        ColisionCheck(projectile)
 
         if projectile.lifetime < 0 then
             projectile.hit_callback(projectile)
+        end
+    end
+end
+
+function ColisionCheck(projectile)
+    if projectile then
+        local entity = nil
+        local i = nil
+        if projectile.target == "Player" then
+            entity = Player
+        elseif projectile.target == "Enemy" then
+            i, entity = GetEnemyNearProjectile(projectile)
+        end
+        if GameActive and entity and entity:isNear(projectile) then
+            projectile.hit_callback(projectile)
+            if (entity.name == "Enemy") then
+                table.remove(Enemies, i)
+                projectile.lifetime = -1
+            else
+                if (entity.name == "Player") then
+                    Player = nil
+                    GameActive = false
+                    projectile.lifetime = -1
+                end
+            end
         end
     end
 end

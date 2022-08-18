@@ -2,6 +2,7 @@ LarguraTela = love.graphics.getWidth()
 AlturaTela = love.graphics.getHeight()
 Speed = 10
 BoolToNumber = {[true] = 1, [false] = 0}
+GameActive = true
 
 function CalculateValocityDiagonal(dt, vertical_keys)
     if vertical_keys == nil then
@@ -14,6 +15,19 @@ function CalculateValocityDiagonal(dt, vertical_keys)
     else
         return ((-0.5 * BoolToNumber[MovementPlayer.left or MovementPlayer.right]) + 1) * MovementPlayer.velocity * dt
     end
+end
+
+function LoadGame()
+    Enemies = {}
+    ConfigBackground()
+    PlayerClass:new()
+    for i = 1, 9, 1 do
+        Enemy:new()
+    end
+    DrawBackground()
+    Player:draw()
+    DrawAllEnemies()
+    GameActive = true
 end
 
 function TableLenght(t)

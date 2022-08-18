@@ -1,20 +1,35 @@
 require "scripts.projectile"
 require "scripts.classes.entity"
 
-Player = newPlayer()
+PlayerClass = newPlayer()
 print("calling newPlayer()")
--- Player.__index = Player
+-- PlayerClass.__index = PlayerClass
 
-function Player:new()
-    Player:__tostring()
-    Player:configure()
+function PlayerClass:new()
+    local nPlayer = Class(PlayerClass)
+    nPlayer:configure()
+    Player = nPlayer
 end
 
-function Player:draw()
+function GetPlayerNearProjectile(projectile)
+    if PlayerClass:isNear(projectile) then
+        return PlayerClass
+    end
+    return nil
+end
+
+-- function PlayerClass:isNear(projectile)
+--     return self.sprite.x < projectile.sprite.x + projectile.sprite.width and
+--         self.sprite.x + self.sprite.width > projectile.sprite.x and
+--         self.sprite.y < projectile.sprite.y + projectile.sprite.height and
+--         self.sprite.y + self.sprite.height > projectile.sprite.y
+-- end
+
+function PlayerClass:draw()
     DrawSprite(self.sprite)
 end
 
-function Player:configure()
+function PlayerClass:configure()
     self.MovementPlayer = {
         up = false,
         down = false,
@@ -27,7 +42,7 @@ function Player:configure()
     self.projectiles = {}
     self.fireCoolDown = 0.7
 end
-function Player:move(dt)
+function PlayerClass:move(dt)
     if (self.MovementPlayer.up and self.sprite.y - (self.MovementPlayer.velocity * dt) >= 0) then
         self.sprite.y = self.sprite.y - CalculateValocityDiagonal(dt, true)
     end
@@ -51,6 +66,7 @@ function Player:move(dt)
         if TableLenght(self.projectiles) < 5 and self.fireCoolDown <= 0 then
             local projectile = ConfigureProjectile({})
             -- projectile.image.fl
+            projectile.target = "Enemy"
             UpdateX(projectile.sprite, self.sprite.x + math.ceil(self.sprite.width / 2), 3)
             UpdateY(projectile.sprite, self.sprite.y - projectile.sprite.height, 0)
             projectile.speed = projectile.speed * -1
@@ -62,13 +78,13 @@ function Player:move(dt)
     end
 end
 
-function Player:DrawProjectiles()
+function PlayerClass:DrawProjectiles()
     for _, projectile in pairs(self.projectiles) do
         DrawProjectile(projectile)
     end
 end
 
-function Player:UpdateProjectiles(dt)
+function PlayerClass:UpdateProjectiles(dt)
     for index, projectile in pairs(self.projectiles) do
         UpdateProjectile(projectile, dt)
         if projectile.lifetime < 0 then

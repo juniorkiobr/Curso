@@ -34,6 +34,13 @@ function Entity:__tostring()
     end
 end
 
+function Entity:isNear(projectile)
+    return self.sprite.x < projectile.sprite.x + projectile.sprite.width and
+        self.sprite.x + self.sprite.width > projectile.sprite.x and
+        self.sprite.y < projectile.sprite.y + projectile.sprite.height and
+        self.sprite.y + self.sprite.height > projectile.sprite.y
+end
+
 function newPlayer()
     local c = Class(Entity)
     local r = c("Player")
