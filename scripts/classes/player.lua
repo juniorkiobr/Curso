@@ -36,7 +36,7 @@ function PlayerClass:configure()
         left = false,
         right = false,
         space = false,
-        velocity = 30 * Speed
+        velocity = 35 * Speed
     }
     self.sprite = CreateSprite(LarguraTela / 2, AlturaTela / 2, "Imagens/nave.png")
     self.sprite.destroysfx = love.audio.newSource("sons/ExplodeNave.wav", "static")

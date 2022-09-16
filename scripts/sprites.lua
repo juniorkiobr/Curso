@@ -6,7 +6,6 @@ function CreateSprite(x, y, image_path)
     sprite.width = image:getWidth()
     sprite.height = image:getHeight()
     sprite.image = image
-    -- sprite.quad = love.graphics.newQuad(0, 0, sprite.width, sprite.height, image:getDimensions())
     sprite.rotation = 0
     sprite.mirrorX = false
     sprite.mirrorY = false

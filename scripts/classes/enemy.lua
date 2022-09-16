@@ -66,6 +66,12 @@ function Enemy:configure(x, y)
     self.fireCoolDown = 0.7
 end
 
+function Enemy:destroy()
+    print("Enemy destroyed")
+    score = score + 1
+    self.sprite.destroysfx:play()
+end
+
 function Enemy:DecideMovement(dt)
     if GameActive then
         local pPos = {

@@ -21,8 +21,12 @@ function love.keyreleased(key)
     end
 end
 
-function KeysAreDown(k1, k2)
-    return love.keyboard.isDown(k1) or love.keyboard.isDown(k2)
+function KeysAreDown(k1, k2, joystick)
+    if joystick then
+        return joystick:isGamepadDown(k1) or joystick:isGamepadDown(k2)
+    else
+        return love.keyboard.isDown(k1) or love.keyboard.isDown(k2)
+    end
 end
 
 function DetectKeysPlayer()

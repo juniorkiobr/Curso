@@ -5,6 +5,7 @@ AlturaTela = love.graphics.getHeight()
 Speed = 10
 BoolToNumber = {[true] = 1, [false] = 0}
 GameActive = true
+score = 0
 
 function CalculateValocityDiagonal(dt, vertical_keys)
     if vertical_keys == nil then
@@ -27,6 +28,7 @@ function LoadGame()
     DrawBackground()
     Player:draw()
     DrawAllEnemies()
+    score = 0
     GameActive = true
 end
 
