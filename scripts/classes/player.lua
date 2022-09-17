@@ -27,9 +27,12 @@ end
 
 function PlayerClass:draw()
     DrawSprite(self.sprite)
+    love.graphics.print("Lifes: " .. self.shipLife.lifes, (LarguraTela - 100), 0)
 end
 
-function PlayerClass:configure()
+function PlayerClass:configureChild()
+    print("calling configureChild()")
+
     self.MovementPlayer = {
         up = false,
         down = false,
@@ -38,6 +41,7 @@ function PlayerClass:configure()
         space = false,
         velocity = 35 * Speed
     }
+    self.shipLife.lifes = 5
     self.sprite = CreateSprite(LarguraTela / 2, AlturaTela / 2, "Imagens/nave.png")
     self.sprite.destroysfx = love.audio.newSource("sons/ExplodeNave.wav", "static")
     self.projectiles = {}
@@ -91,5 +95,16 @@ function PlayerClass:UpdateProjectiles(dt)
         if projectile.lifetime < 0 then
             table.remove(self.projectiles, index)
         end
+    end
+end
+
+function PlayerClass:callbackDestroy()
+    Player = nil
+    GameActive = false
+end
+
+function PlayerClass:hasController()
+    if (ControllerPlayer1 ~= nil) then
+        return true
     end
 end

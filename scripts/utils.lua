@@ -24,6 +24,11 @@ function LoadGame()
     Enemies = {}
     ConfigBackground()
     PlayerClass:new()
+    if (ControllerPlayer1 == nil) then
+        love.graphics.print("Press fire to select controller", LarguraTela / 2, AlturaTela / 2)
+        while ControllerPlayer1 ~= nil do
+        end
+    end
     -- SpawnEnemy()
     DrawBackground()
     Player:draw()

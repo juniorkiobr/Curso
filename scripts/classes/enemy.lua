@@ -45,8 +45,14 @@ function Enemy:new(x, y)
 end
 
 function Enemy:draw()
-    DrawSprite(self.sprite)
-    self:DrawProjectiles()
+    if self.shipLife.lifes > 0 then
+        DrawSprite(self.sprite)
+    end
+    if TableLenght(self.projectiles) > 0 then
+        self:DrawProjectiles()
+    elseif self.shipLife.lifes <= 0 then
+        RemoveEnemy(self)
+    end
 end
 
 function Enemy:configure(x, y)
@@ -58,7 +64,7 @@ function Enemy:configure(x, y)
         delayPursuit = 0,
         velocity = 30 * Speed
     }
-    print(self.MovementEnemy.velocity)
+    self.shipLife = newShipLife(1)
     self.sprite = CreateSprite(x, y, "Imagens/inimigo.png")
     self.sprite.destroysfx = love.audio.newSource("sons/ExplodeInimigo.wav", "static")
 
@@ -67,24 +73,36 @@ function Enemy:configure(x, y)
 end
 
 function Enemy:destroy()
-    print("Enemy destroyed")
     score = score + 1
     self.sprite.destroysfx:play()
+    self.sprite = nil
+end
+
+function RemoveEnemy(enemy)
+    for i, e in ipairs(Enemies) do
+        if e == enemy then
+            table.remove(Enemies, i)
+        end
+    end
 end
 
 function Enemy:DecideMovement(dt)
-    if GameActive then
+    if GameActive and self.shipLife.lifes > 0 then
         local pPos = {
-            x = Player:get("sprite").x,
-            y = Player:get("sprite").y
+            x = Player.sprite.x,
+            y = Player.sprite.y
         }
         pPos.enemyDirection = {
             x = pPos.x - self.sprite.x,
             y = pPos.y - self.sprite.y - self.sprite.height - 70
         }
         pPos.distance = math.sqrt((pPos.enemyDirection.x ^ 2) + (pPos.enemyDirection.y ^ 2))
+        print("Distance" .. math.floor(pPos.distance))
 
         if (math.floor(pPos.distance) ~= 0) and self.MovementEnemy.delayPursuit <= 0 then
+            if (math.floor(pPos.distance) > 5 and math.floor(pPos.distance) < 80) then
+                self:fire()
+            end
             self.sprite.x =
                 self.sprite.x + pPos.enemyDirection.x / pPos.distance * math.floor(self.MovementEnemy.velocity * dt)
             self.sprite.y =

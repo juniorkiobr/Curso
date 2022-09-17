@@ -47,18 +47,9 @@ function ColisionCheck(projectile)
             i, entity = GetEnemyNearProjectile(projectile)
         end
         if GameActive and entity and entity:isNear(projectile) then
-            entity:destroy()
+            entity:removeLife()
             projectile.hit_callback(projectile)
-            if (entity.name == "Enemy") then
-                table.remove(Enemies, i)
-                projectile.lifetime = -1
-            else
-                if (entity.name == "Player") then
-                    Player = nil
-                    GameActive = false
-                    projectile.lifetime = -1
-                end
-            end
+            projectile.lifetime = -1
         end
     end
 end
