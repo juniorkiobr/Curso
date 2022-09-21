@@ -1,7 +1,16 @@
 {
   "lövelauncher.path": "D:\\love-11.4-win64/love.exe",
   "Lua.runtime.version": "LuaJIT",
-  "Lua.workspace.library": ["${3rd}/love2d/library"],
+  "Lua.workspace.library": ["${3rd}/love2d/library", "${userHome}/.vscode"],
   "Lua.workspace.checkThirdParty": false,
-  "Lua.diagnostics.globals": ["new_globals", "exclude_files"]
+  "Lua.diagnostics.globals": ["new_globals", "exclude_files", "ignore", "std"],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "${userHome}/.vscode/**": true
+  }
 }

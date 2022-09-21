@@ -62,9 +62,13 @@ new_globals = {
     "DefineGameActive",
     "DefineControllerPlayer1"
 }
-exclude_files = {"**/.*"}
+exclude_files = {
+    "**/.*",
+    "~/.vscode/**"
+}
 std = "love"
 ignore = {
     "212/self",
-    "212/dt"
+    "212/dt",
+    "631"
 }
