@@ -2,16 +2,16 @@ require "scripts.classes.entity"
 require "scripts.projectile"
 
 Enemies = {}
-Enemy = newEnemy()
+Enemy = NewEnemy()
 
 function DrawAllEnemies()
-    for i, enemy in ipairs(Enemies) do
+    for enemy in Enemies do
         enemy:draw()
     end
 end
 
 function UpdateAllEnemies(dt)
-    for i, enemy in ipairs(Enemies) do
+    for enemy in Enemies do
         enemy:Update(dt)
     end
 end
@@ -38,11 +38,11 @@ end
 --         self.sprite.y + self.sprite.height > projectile.sprite.y
 -- end
 
-function Enemy:new(x, y)
-    nEnemy = Class(Enemy)
-    nEnemy:configure(x, y)
-    InsertEnemy(nEnemy)
-end
+-- function new(x, y)
+--     nEnemy = Class(Enemy)
+--     nEnemy:configure(x, y)
+--     InsertEnemy(nEnemy)
+-- end
 
 function Enemy:draw()
     if self.shipLife.lifes > 0 then
@@ -64,7 +64,7 @@ function Enemy:configure(x, y)
         delayPursuit = 0,
         velocity = 30 * Speed
     }
-    self.shipLife = newShipLife(1)
+    self.shipLife = NewShipLife(1)
     self.sprite = CreateSprite(x, y, "Imagens/inimigo.png")
     self.sprite.destroysfx = love.audio.newSource("sons/ExplodeInimigo.wav", "static")
 
@@ -73,7 +73,7 @@ function Enemy:configure(x, y)
 end
 
 function Enemy:destroy()
-    score = score + 1
+    ScoreIncrease(1)
     self.sprite.destroysfx:play()
     self.sprite = nil
 end
@@ -137,14 +137,11 @@ function Enemy:fire()
 end
 
 function Enemy:UpdateProjectiles(dt)
-    for i, projectile in ipairs(self.projectiles) do
+    for index, projectile in ipairs(self.projectiles) do
         UpdateProjectile(projectile, dt)
         if projectile.lifetime < 0 then
             table.remove(self.projectiles, index)
         end
-        -- if projectile.x < 0 or projectile.x > LarguraTela or projectile.sprite.y < 0 or projectile.sprite.y > AlturaTela then
-        --     table.remove(self.projectiles, i)
-        -- end
     end
 end
 

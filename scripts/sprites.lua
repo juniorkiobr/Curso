@@ -16,8 +16,8 @@ function CreateSprite(x, y, image_path)
     return sprite
 end
 
-function MirrorX(sprite, mirrorx)
-    sprite.mirrorX = mirrorx
+function MirrorX(sprite, mirrorX)
+    sprite.mirrorX = mirrorX
     sprite.scaleX = (-2 * BoolToNumber[mirrorX]) + 1
     -- statements
 end

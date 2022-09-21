@@ -1,14 +1,14 @@
 require "scripts.projectile"
 require "scripts.classes.entity"
 
-PlayerClass = newPlayer()
+PlayerClass = NewPlayer()
 
 function PlayerClass:new()
     local nPlayer = Class(PlayerClass)
     nPlayer:configure()
     print("calling configure()")
     print(nPlayer)
-    Player = nPlayer
+    DefinePlayer(nPlayer)
 end
 
 function GetPlayerNearProjectile(projectile)
@@ -99,8 +99,8 @@ function PlayerClass:UpdateProjectiles(dt)
 end
 
 function PlayerClass:callbackDestroy()
-    Player = nil
-    GameActive = false
+    DefinePlayer(nil)
+    DefineGameActive(false)
 end
 
 function PlayerClass:hasController()

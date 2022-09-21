@@ -1,3 +1,5 @@
+Background = nil
+
 function ConfigBackground()
     Background = {
         image = love.graphics.newImage("Imagens/background.png"),

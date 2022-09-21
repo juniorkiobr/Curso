@@ -72,7 +72,7 @@ PS2CONTROLLERMAP = {
     axisCamVertical = 4
 }
 
-function getControllersinfo()
+function GetControllersinfo()
     local joysticks = love.joystick.getJoysticks()
 
     if TableLenght(joysticks) > 0 then
@@ -90,18 +90,18 @@ function getControllersinfo()
     end
 end
 
-function getControllers()
+function GetControllers()
     -- local joysticks = love.joystick.getJoysticks()
     if ControllerPlayer1 ~= nil then
         if (ControllerPlayer1:getGUID() == X360CONTROLLER) then
-            getAxisGamepad(ControllerPlayer1, X360CONTROLLERMAP.axisMovHorizontal, X360CONTROLLERMAP.axisMovVertical)
+            GetAxisGamepad(ControllerPlayer1, X360CONTROLLERMAP.axisMovHorizontal, X360CONTROLLERMAP.axisMovVertical)
         elseif (ControllerPlayer1:getGUID() == PS2CONTROLLER) then
-            getAxisGamepad(ControllerPlayer1, PS2CONTROLLERMAP.axisMovHorizontal, PS2CONTROLLERMAP.axisMovVertical)
+            GetAxisGamepad(ControllerPlayer1, PS2CONTROLLERMAP.axisMovHorizontal, PS2CONTROLLERMAP.axisMovVertical)
         end
     end
 end
 
-function getAxisGamepad(joystick, axisMovHorizontal, axisMovVertical)
+function GetAxisGamepad(joystick, axisMovHorizontal, axisMovVertical)
     if joystick then
         if (GameActive) then
             local axisHorizontal = joystick:getAxis(axisMovHorizontal)
@@ -140,13 +140,13 @@ function getAxisGamepad(joystick, axisMovHorizontal, axisMovVertical)
                 Player.MovementPlayer.up = true
             end
         end
-        getDpadMGamepad(joystick)
+        GetDpadMGamepad(joystick)
     end
 end
 
 function love.gamepadpressed(joystick, button)
     if (not ControllerPlayer1 ~= nil) then
-        ControllerPlayer1 = joystick
+        DefineControllerPlayer1(joystick)
     else
         print("gamepadpressed ", joystick)
         print("gamepadpressed: " .. button)
@@ -154,10 +154,10 @@ function love.gamepadpressed(joystick, button)
 end
 
 function love.gamepadreleased(joystick, button)
-    notDownGamepad(joystick, button)
+    NotDownGamepad(joystick, button)
 end
 
-function notDownGamepad(joystick, button)
+function NotDownGamepad(joystick, button)
     if joystick then
         if button == "back" then
             love.event.quit()
@@ -182,7 +182,7 @@ function notDownGamepad(joystick, button)
     end
 end
 
-function getDpadMGamepad(joystick)
+function GetDpadMGamepad(joystick)
     if joystick then
         if joystick:isGamepadDown("a") then
             if (GameActive) then

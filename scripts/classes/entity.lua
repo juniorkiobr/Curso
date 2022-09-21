@@ -55,7 +55,7 @@ function Entity:callbackDestroy()
 end
 
 function Entity:configure()
-    self.shipLife = newShipLife(1)
+    self.shipLife = NewShipLife(1)
     self:configureChild()
 end
 
@@ -71,13 +71,13 @@ function Entity:removeLife()
     end
 end
 
-function newPlayer()
+function NewPlayer()
     local c = Class(Entity)
     local r = c("Player")
     return r
 end
 
-function newEnemy()
+function NewEnemy()
     local c = Class(Entity)
     local r = c("Enemy")
     return r

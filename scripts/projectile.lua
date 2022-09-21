@@ -5,15 +5,12 @@ function ConfigureProjectile(projectile)
     projectile.sfx = love.audio.newSource("sons/Tiro.wav", "static")
     -- projectile.hit_effect = "hit_effect_01"
     -- projectile.particle_effect = "particle_effect_01"
-    projectile.hit_callback = function(projectile)
+    projectile.hit_callback = function()
         if projectile.lifetime < 0 then
             print("Projectile lifespan has ended")
         else
             print("Projectile colided with something")
         end
-        -- Player.projectile = nil
-        -- Player.projectile = ConfigureProjectile({})
-        -- MovementPlayer.space = false
     end
     return projectile
 end
@@ -40,11 +37,11 @@ end
 function ColisionCheck(projectile)
     if projectile then
         local entity = nil
-        local i = nil
+        local _ = nil
         if projectile.target == "Player" then
             entity = Player
         elseif projectile.target == "Enemy" then
-            i, entity = GetEnemyNearProjectile(projectile)
+            _, entity = GetEnemyNearProjectile(projectile)
         end
         if GameActive and entity and entity:isNear(projectile) then
             entity:removeLife()

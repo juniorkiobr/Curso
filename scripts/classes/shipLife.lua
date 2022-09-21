@@ -39,7 +39,7 @@ function ShipLife:callbackRemoveLife()
     return "method not implemented"
 end
 
-function newShipLife(lifes)
+function NewShipLife(lifes)
     local c = Class(ShipLife)
     local r = c("ShipLife")
     r:configure(lifes)

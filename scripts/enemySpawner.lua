@@ -8,7 +8,7 @@ SpawnerPositions = {
 SpawnCooldown = 0.0
 
 function SpawnEnemy()
-    rnd = math.random(1, #SpawnerPositions)
+    local rnd = math.random(1, #SpawnerPositions)
     Enemy:new(SpawnerPositions[rnd].x, SpawnerPositions[rnd].y)
 end
 

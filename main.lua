@@ -14,10 +14,10 @@ end
 
 function love.update(dt)
   DetectKeysPlayer()
-  getControllers()
+  GetControllers()
 
   if (GameActive) then
-    RepeatBackground(dt)
+    RepeatBackground()
     MoveBackground(dt)
     Player:move(dt)
     Player:UpdateProjectiles(dt)
@@ -34,8 +34,8 @@ function love.draw()
     Player:draw()
     Player:DrawProjectiles()
     DrawAllEnemies()
-    -- getControllersinfo()
-    love.graphics.print("Score:. " .. score, 0, 0)
+    -- GetControllersinfo()
+    love.graphics.print("Score:. " .. Score, 0, 0)
   else
     love.graphics.print("Press fire to start", love.graphics.getWidth() / 2 - 50, love.graphics.getHeight() / 2)
   end
